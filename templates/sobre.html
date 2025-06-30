@@ -1,0 +1,473 @@
+{% extends "base.html" %}
+
+{% block title %}Sobre o Evento - Jornada Odontológica de Pernambuco 2025{% endblock %}
+
+{% block extra_css %}
+  <style>
+    .page-header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, #553c9a 100%);
+      color: white;
+      padding: 6rem 0 4rem;
+      text-align: center;
+    }
+
+    .page-title {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .page-subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-subtitle {
+      color: var(--text-light);
+      text-align: center;
+      margin-bottom: 3rem;
+      font-size: 1.1rem;
+    }
+
+    .about-card {
+      background: white;
+      border-radius: 20px;
+      padding: 3rem;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      margin-bottom: 3rem;
+      transition: all 0.3s ease;
+    }
+
+    .about-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+    }
+
+    .about-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--primary-color) 0%, #553c9a 100%);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin: 0 auto 2rem;
+    }
+
+    .timeline {
+      position: relative;
+      padding: 2rem 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--primary-color);
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3rem;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content {
+      margin-left: 0;
+      margin-right: 50%;
+      padding-right: 3rem;
+      text-align: right;
+    }
+
+    .timeline-item:nth-child(even) .timeline-content {
+      margin-left: 50%;
+      margin-right: 0;
+      padding-left: 3rem;
+      text-align: left;
+    }
+
+    .timeline-content {
+      background: white;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .timeline-content::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 20px;
+      height: 20px;
+      background: var(--accent-color);
+      border-radius: 50%;
+      transform: translateY(-50%);
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content::before {
+      right: -60px;
+    }
+
+    .timeline-item:nth-child(even) .timeline-content::before {
+      left: -60px;
+    }
+
+    .timeline-year {
+      color: var(--accent-color);
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-title {
+      color: var(--text-dark);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-description {
+      color: var(--text-light);
+    }
+
+    .objectives-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .objectives-list li {
+      padding: 1rem 0;
+      border-bottom: 1px solid #e9ecef;
+      display: flex;
+      align-items: center;
+    }
+
+    .objectives-list li:last-child {
+      border-bottom: none;
+    }
+
+    .objectives-list li i {
+      color: var(--accent-color);
+      margin-right: 1rem;
+      font-size: 1.2rem;
+      width: 30px;
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, var(--accent-color) 0%, #e55a2b 100%);
+      color: white;
+      border-radius: 15px;
+      padding: 2rem;
+      text-align: center;
+      margin: 2rem 0;
+    }
+
+    .highlight-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .highlight-text {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .stats-section {
+      background: linear-gradient(135deg, var(--primary-color) 0%, #553c9a 100%);
+      color: white;
+      padding: 4rem 0;
+      margin: 4rem 0;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    @media (max-width: 768px) {
+      .page-title {
+        font-size: 2rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .timeline::before {
+        left: 20px;
+      }
+      
+      .timeline-item:nth-child(odd) .timeline-content,
+      .timeline-item:nth-child(even) .timeline-content {
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 3rem;
+        padding-right: 1rem;
+        text-align: left;
+      }
+      
+      .timeline-item:nth-child(odd) .timeline-content::before,
+      .timeline-item:nth-child(even) .timeline-content::before {
+        left: -40px;
+        right: auto;
+      }
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <!-- Header -->
+  <div class="page-header">
+    <div class="container">
+      <h1 class="page-title">Sobre o Evento</h1>
+      <p class="page-subtitle">Conheça a história e os objetivos da Jornada Odontológica de Pernambuco</p>
+    </div>
+  </div>
+
+  <!-- Sobre o Evento -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <div class="about-card">
+            <div class="about-icon">
+              <i class="fas fa-calendar-alt"></i>
+            </div>
+            <h3 class="text-center mb-4">A Maior Jornada Odontológica do Nordeste</h3>
+            <p class="lead text-center mb-4">
+              A Jornada Odontológica de Pernambuco (JOP) é o principal evento científico da odontologia no Nordeste brasileiro, 
+              reunindo os mais renomados especialistas nacionais para compartilhar conhecimento, inovação e experiências.
+            </p>
+            <p class="text-center">
+              Durante dois dias intensos, profissionais e estudantes terão acesso a palestras, workshops práticos, 
+              mesas redondas e networking de qualidade, tudo em um ambiente moderno e acolhedor.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- História -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <h2 class="section-title">Nossa História</h2>
+      <p class="section-subtitle">Uma trajetória de sucesso e crescimento</p>
+      
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-year">2015</div>
+            <div class="timeline-title">Primeira Edição</div>
+            <div class="timeline-description">
+              Lançamento da primeira JOP com 200 participantes e 8 palestrantes, 
+              estabelecendo as bases para o maior evento odontológico do Nordeste.
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-year">2017</div>
+            <div class="timeline-title">Crescimento Expressivo</div>
+            <div class="timeline-description">
+              A JOP dobrou de tamanho, alcançando 400 participantes e expandindo 
+              para 12 palestrantes de renome nacional.
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-year">2019</div>
+            <div class="timeline-title">Reconhecimento Nacional</div>
+            <div class="timeline-description">
+              O evento ganhou reconhecimento nacional, sendo considerado um dos 
+              principais congressos odontológicos do Brasil.
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-year">2021</div>
+            <div class="timeline-title">Adaptação Digital</div>
+            <div class="timeline-description">
+              Durante a pandemia, a JOP se reinventou com uma edição 100% online, 
+              mantendo a qualidade e alcançando participantes de todo o Brasil.
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-year">2023</div>
+            <div class="timeline-title">Retorno Presencial</div>
+            <div class="timeline-description">
+              Retorno triunfal ao formato presencial com recorde de participantes 
+              e palestrantes internacionais.
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-year">2025</div>
+            <div class="timeline-title">JOP 2025</div>
+            <div class="timeline-description">
+              A maior edição da história, com 500+ participantes esperados, 
+              20 palestrantes e 16 horas de conteúdo de alta qualidade.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Objetivos -->
+  <section class="py-5">
+    <div class="container">
+      <h2 class="section-title">Nossos Objetivos</h2>
+      <p class="section-subtitle">Missão, visão e valores da JOP</p>
+      
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="about-card">
+            <div class="about-icon">
+              <i class="fas fa-bullseye"></i>
+            </div>
+            <h4 class="text-center mb-4">Missão</h4>
+            <p class="text-center">
+              Promover a excelência na odontologia através da disseminação de conhecimento científico, 
+              inovação tecnológica e networking profissional, contribuindo para o desenvolvimento 
+              da odontologia no Nordeste brasileiro.
+            </p>
+          </div>
+        </div>
+        
+        <div class="col-lg-6">
+          <div class="about-card">
+            <div class="about-icon">
+              <i class="fas fa-eye"></i>
+            </div>
+            <h4 class="text-center mb-4">Visão</h4>
+            <p class="text-center">
+              Ser reconhecida como o principal evento odontológico do Nordeste e uma das mais 
+              importantes jornadas científicas do Brasil, referência em qualidade e inovação.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row mt-4">
+        <div class="col-lg-12">
+          <div class="about-card">
+            <h4 class="text-center mb-4">Objetivos Específicos</h4>
+            <ul class="objectives-list">
+              <li>
+                <i class="fas fa-check-circle"></i>
+                <span>Atualizar profissionais sobre as últimas técnicas e tecnologias em odontologia</span>
+              </li>
+              <li>
+                <i class="fas fa-check-circle"></i>
+                <span>Promover networking entre profissionais da área odontológica</span>
+              </li>
+              <li>
+                <i class="fas fa-check-circle"></i>
+                <span>Estimular a pesquisa e inovação na odontologia</span>
+              </li>
+              <li>
+                <i class="fas fa-check-circle"></i>
+                <span>Contribuir para a formação continuada dos profissionais</span>
+              </li>
+              <li>
+                <i class="fas fa-check-circle"></i>
+                <span>Fortalecer a odontologia pernambucana e nordestina</span>
+              </li>
+              <li>
+                <i class="fas fa-check-circle"></i>
+                <span>Promover a troca de experiências entre diferentes especialidades</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Estatísticas -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="stat-item">
+            <span class="stat-number">10</span>
+            <span class="stat-label">Anos de História</span>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-item">
+            <span class="stat-number">2000+</span>
+            <span class="stat-label">Participantes</span>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-item">
+            <span class="stat-number">100+</span>
+            <span class="stat-label">Palestrantes</span>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-item">
+            <span class="stat-number">6</span>
+            <span class="stat-label">Edições Realizadas</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Destaque -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <div class="highlight-box">
+        <h3 class="highlight-title">Por que participar da JOP 2025?</h3>
+        <p class="highlight-text">
+          A JOP 2025 será a maior edição da história, com conteúdo inédito, 
+          palestrantes de renome internacional e networking de qualidade. 
+          Não perca a oportunidade de fazer parte deste evento que vai transformar 
+          sua carreira profissional.
+        </p>
+        <a href="{{ url_for('inscricao') }}" class="btn btn-light btn-lg mt-3">
+          <i class="fas fa-ticket-alt me-2"></i>Garantir Minha Vaga
+        </a>
+      </div>
+    </div>
+  </section>
+{% endblock %} 

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Jornada Odontológica de Pernambuco 2025{% endblock %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    :root {
+      --primary-color: #6b46c1;
+      --secondary-color: #f8f9fa;
+      --accent-color: #ff6b35;
+      --text-dark: #2c3e50;
+      --text-light: #6c757d;
+    }
+
+    body {
+      line-height: 1.6;
+    }
+
+    .navbar {
+      background: rgba(107, 70, 193, 0.95) !important;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+
+    .nav-link {
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--accent-color) !important;
+    }
+
+    .btn-primary {
+      background: var(--accent-color);
+      border: none;
+      padding: 12px 30px;
+      font-weight: 600;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: #e55a2b;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+    }
+
+    footer {
+      background: var(--text-dark);
+      color: white;
+      padding: 3rem 0 1rem;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-section h5 {
+      color: var(--accent-color);
+      margin-bottom: 1rem;
+    }
+
+    .footer-section p, .footer-section a {
+      color: #bdc3c7;
+      text-decoration: none;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .footer-section a:hover {
+      color: var(--accent-color);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background: var(--accent-color);
+      transform: translateY(-2px);
+    }
+
+    {% block extra_css %}{% endblock %}
+  </style>
+</head>
+<body>
+
+  <!-- Menu -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="{{ url_for('index') }}"><i class="fas fa-tooth me-2"></i>JOP 2025</a>
+      <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('sobre') }}">Sobre</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('palestrantes') }}">Palestrantes</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('programacao') }}">Programação</a></li>
+          <li class="nav-item"><a class="nav-link" href="#local">Local</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('contato') }}">Contato</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  {% block content %}{% endblock %}
+
+  <!-- Rodapé -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h5><i class="fas fa-tooth me-2"></i>JOP 2025</h5>
+          <p>A maior jornada odontológica do Nordeste, reunindo os melhores profissionais da área para compartilhar conhecimento e inovação.</p>
+          <div class="social-links">
+            <a href="https://facebook.com/jop2025" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://instagram.com/jop2025" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://linkedin.com/company/jop2025" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://youtube.com/jop2025" target="_blank"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h5>Links Rápidos</h5>
+          <a href="{{ url_for('sobre') }}">Sobre o Evento</a>
+          <a href="{{ url_for('palestrantes') }}">Palestrantes</a>
+          <a href="{{ url_for('programacao') }}">Programação</a>
+          <a href="#local">Local</a>
+          <a href="{{ url_for('contato') }}">Contato</a>
+        </div>
+        
+        <div class="footer-section">
+          <h5>Informações</h5>
+          <p><i class="fas fa-calendar me-2"></i>30 e 31 de Agosto de 2025</p>
+          <p><i class="fas fa-map-marker-alt me-2"></i>Recife - PE</p>
+          <p><i class="fas fa-clock me-2"></i>8h às 18h</p>
+        </div>
+        
+        <div class="footer-section">
+          <h5>Contato</h5>
+          <p><i class="fas fa-envelope me-2"></i>contato@jop2025.com.br</p>
+          <p><i class="fas fa-phone me-2"></i>(81) 99999-9999</p>
+          <p><i class="fas fa-whatsapp me-2"></i>(81) 99999-9999</p>
+        </div>
+      </div>
+      
+      <hr style="border-color: #34495e;">
+      <div class="text-center">
+        <p class="mb-0">© 2025 Jornada Odontológica de Pernambuco • Todos os direitos reservados</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Navbar background on scroll
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.style.background = 'rgba(107, 70, 193, 0.98)';
+      } else {
+        navbar.style.background = 'rgba(107, 70, 193, 0.95)';
+      }
+    });
+  </script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html> 

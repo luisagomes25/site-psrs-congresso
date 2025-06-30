@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Palestrantes - Jornada Odontológica de Pernambuco 2025</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    :root {
+      --primary-color: #6b46c1;
+      --secondary-color: #f8f9fa;
+      --accent-color: #ff6b35;
+      --text-dark: #2c3e50;
+      --text-light: #6c757d;
+    }
+
+    body {
+      line-height: 1.6;
+    }
+
+    .navbar {
+      background: rgba(107, 70, 193, 0.95) !important;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+
+    .nav-link {
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--accent-color) !important;
+    }
+
+    .page-header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, #553c9a 100%);
+      color: white;
+      padding: 6rem 0 4rem;
+      text-align: center;
+    }
+
+    .page-title {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .page-subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    .speaker-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      margin-bottom: 2rem;
+    }
+
+    .speaker-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+    }
+
+    .speaker-header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, #553c9a 100%);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .speaker-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid white;
+      margin: 0 auto 1rem;
+      display: block;
+    }
+
+    .speaker-name {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .speaker-specialty {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 1rem;
+    }
+
+    .speaker-social {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .speaker-social a {
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.2);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .speaker-social a:hover {
+      background: var(--accent-color);
+      transform: translateY(-2px);
+    }
+
+    .speaker-body {
+      padding: 2rem;
+    }
+
+    .speaker-bio {
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+    }
+
+    .speaker-credentials {
+      background: var(--secondary-color);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .credentials-title {
+      color: var(--primary-color);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .credential-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .credential-item i {
+      color: var(--accent-color);
+      margin-right: 0.5rem;
+      width: 20px;
+    }
+
+    .speaker-lectures {
+      border-top: 1px solid #e9ecef;
+      padding-top: 1.5rem;
+    }
+
+    .lecture-title {
+      color: var(--primary-color);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .lecture-time {
+      color: var(--accent-color);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .lecture-description {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    .filter-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: white;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      padding: 0.5rem 1.5rem;
+      border-radius: 25px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-subtitle {
+      color: var(--text-light);
+      text-align: center;
+      margin-bottom: 3rem;
+      font-size: 1.1rem;
+    }
+
+    .stats-section {
+      background: linear-gradient(135deg, var(--primary-color) 0%, #553c9a 100%);
+      color: white;
+      padding: 4rem 0;
+      margin: 4rem 0;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    @media (max-width: 768px) {
+      .page-title {
+        font-size: 2rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .filter-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .filter-btn {
+        width: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Menu -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="teste.html"><i class="fas fa-tooth me-2"></i>JOP 2025</a>
+      <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="teste.html#sobre">Sobre</a></li>
+          <li class="nav-item"><a class="nav-link" href="teste.html#palestrantes">Palestrantes</a></li>
+          <li class="nav-item"><a class="nav-link" href="teste.html#programacao">Programação</a></li>
+          <li class="nav-item"><a class="nav-link" href="teste.html#local">Local</a></li>
+          <li class="nav-item"><a class="nav-link" href="teste.html#contato">Contato</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <div class="page-header">
+    <div class="container">
+      <h1 class="page-title">Palestrantes Confirmados</h1>
+      <p class="page-subtitle">Conheça os especialistas que vão compartilhar conhecimento</p>
+    </div>
+  </div>
+
+  <!-- Filtros -->
+  <div class="container mt-5">
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-filter="all">Todos</button>
+      <button class="filter-btn" data-filter="ortodontia">Ortodontia</button>
+      <button class="filter-btn" data-filter="implantodontia">Implantodontia</button>
+      <button class="filter-btn" data-filter="endodontia">Endodontia</button>
+      <button class="filter-btn" data-filter="periodontia">Periodontia</button>
+      <button class="filter-btn" data-filter="estetica">Estética</button>
+    </div>
+  </div>
+
+  <!-- Palestrantes -->
+  <div class="container mt-5">
+    <div class="row">
+      <!-- Dra. Priscila Prosini -->
+      <div class="col-lg-6" data-specialty="ortodontia">
+        <div class="speaker-card">
+          <div class="speaker-header">
+            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=300&h=300&fit=crop&crop=face" alt="Dra. Priscila Prosini" class="speaker-avatar">
+            <h3 class="speaker-name">Dra. Priscila Prosini</h3>
+            <p class="speaker-specialty">Especialista em Ortodontia e Ortopedia Facial</p>
+            <div class="speaker-social">
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fas fa-globe"></i></a>
+            </div>
+          </div>
+          <div class="speaker-body">
+            <p class="speaker-bio">
+              Cirurgiã-dentista especialista em Ortodontia e Ortopedia Facial com mais de 15 anos de experiência. 
+              Mestre em Ortodontia pela USP e especialista em casos complexos de má oclusão. 
+              Palestrante internacional e autora de diversos artigos científicos.
+            </p>
+            
+            <div class="speaker-credentials">
+              <h5 class="credentials-title">Formação e Credenciais</h5>
+              <div class="credential-item">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Mestrado em Ortodontia - USP</span>
+              </div>
+              <div class="credential-item">
+                <i class="fas fa-certificate"></i>
+                <span>Especialista em Ortodontia - CRO</span>
+              </div>
+              <div class="credential-item">
+                <i class="fas fa-award"></i>
+                <span>Prêmio Melhor Tese - ABOR 2020</span>
+              </div>
+              <div class="credential-item">
+                <i class="fas fa-book"></i>
+                <span>15+ artigos publicados</span>
+              </div>
+            </div>
+
+            <div class="speaker-lectures">
+              <h5 class="lecture-title">Palestras Confirmadas</h5>
+              <div class="lecture-time">Dia 1 - 09:00 às 10:30</div>
+              <div class="lecture-description">
+                <strong>Inovações em Ortodontia:</strong> Novas técnicas e tecnologias que estão revolucionando o tratamento ortodôntico, incluindo alinhadores transparentes e ortodontia digital.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dr. Carlos Mendes -->
+      <div class="col-lg-6" data-specialty="implantodontia">
+        <div class="speaker-card">
+          <div class="speaker-header">
+            <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=300&h=300&fit=crop&crop=face" alt="Dr. Carlos Mendes" class="speaker-avatar">
+            <h3 class="speaker-name">Dr. Carlos Mendes</h3>
+            <p class="speaker-specialty">Especialista em Implantodontia</p>
+            <div class="speaker-social">
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fas fa-globe"></i></a>
+            </div>
+          </div>
+          <div class="speaker-body">
+            <p class="speaker-bio">
+              Especialista em Implantodontia com mais de 20 anos de experiência clínica. 
+              Doutor em Implantodontia pela UNICAMP e membro da Academia Brasileira de Implantodontia. 
+              Pioneiro em técnicas de implantes imediatos e carga imediata.
+            </p>
+            
+            <div class="speaker-credentials">
+              <h5 class="credentials-title">Formação e Credenciais</h5>
+              <div class="credential-item">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Doutorado em Implantodontia - UNICAMP</span>
+              </div>
+              <div class="credential-item">
+                <i class="fas fa-certificate"></i>
+                <span>Especialista em Implantodontia - CRO</span>
+              </div>
+              <div class="credential-item">
+                <i class="fas fa-award"></i>
+                <span>Membro da Academia Brasileira de Implantodontia</span>
+              </div>
+              <div class="credential-item">
+                <i class="fas fa-book"></i>
+                <span>25+ artigos publicados</span>
+              </div>
+            </div>
+
+            <div class="speaker-lectures">
+              <h5 class="lecture-title">Palestras Confirmadas</h5>
+              <div class="lecture-time">Dia 1 - 10:45 às 12:15</div>
+              <div class="lecture-description">
+                <strong>Implantes Dentários: Técnicas Modernas:</strong> Abordagem prática das técnicas mais avançadas em implantodontia, incluindo planejamento digital e cirurgia guiada.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dra. Ana Silva -->
+      <div class="col-lg-6" data-specialty="endodontia">
+        <div class="speaker-card">
+          <div class="speaker-header">
+            <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=300&h=300&fit=crop&crop=face" alt="Dra. Ana Silva" class="speaker-avatar">
+            <h3 class="speaker-name">Dra. Ana Silva</h3>
+            <p class="speaker-specialty">Especialista em Endodontia</p>
+            <div class="speaker-social">
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fas fa-globe"></i></a>
+            </div>
+          </div>
+          <div class="speaker-body">
+            <p class="speaker-bio">
+              Endodontista com especialização em Microendodontia e Cirurgia Endodôntica. 
+              Mestre em Endodontia pela UFMG e especialista em casos complexos de retratamento. 
+              Palestrante nacional e consultora técnica de empresas do setor.
+            </p>
+            
+            <div class="speaker-credentials">
+              <h5 class="credentials-title">Formação e Credenciais</h5>
+              <div class="credential-item">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Mestrado em Endodontia - UFMG</span>
+              </div>
+              <div class="credential-item">
+                <i class="fas fa-certificate"></i>
+                <span>Especialista em Endodontia - CRO</span>
+              </div>
+              <div class="credential-item">
+                <i class="fas fa-award"></i>
+                <span>Especialista em Microendodontia</span>
+              </div>
+              <div class="credential-item">
+                <i class="fas fa-book"></i>
+                <span>12+ artigos publicados</span>
+              </div>
+            </div>
+
+            <div class="speaker-lectures">
+              <h5 class="lecture-title">Palestras Confirmadas</h5>
+              <div class="lecture-time">Dia 1 - 14:00 às 15:30</div>
+              <div class="lecture-description">
+                <strong>Endodontia Contemporânea:</strong> Atualizações em técnicas endodônticas, uso de microscópio operatório e novos protocolos de tratamento.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dr. Roberto Santos -->
+      <div class="col-lg-6" data-specialty="periodontia">
+        <div class="speaker-card">
+          <div class="speaker-header">
+            <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=300&h=300&fit=crop&crop=face" alt="Dr. Roberto Santos" class="speaker-avatar">
+            <h3 class="speaker-name">Dr. Roberto Santos</h3>
+            <p class="speaker-specialty">Especialista em Periodontia</p>
+            <div class="speaker-social">
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fas fa-globe"></i></a>
+            </div>
+          </div>
+          <div class="speaker-body">
+            <p class="speaker-bio">
+              Periodontista com mais de 18 anos de experiência em cirurgia periodontal e implantes. 
+              Doutor em Periodontia pela USP e especialista em regeneração tecidual guiada. 
+              Membro da Sociedade Brasileira de Periodontia.
+            </p>
+            
+            <div class="speaker-credentials">
+              <h5 class="credentials-title">Formação e Credenciais</h5>
+              <div class="credential-item">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Doutorado em Periodontia - USP</span>
+              </div>
+              <div class="credential-item">
+                <i class="fas fa-certificate"></i>
+                <span>Especialista em Periodontia - CRO</span>
+              </div>
+              <div class="credential-item">
+                <i class="fas fa-award"></i>
+                <span>Membro da Sociedade Brasileira de Periodontia</span>
+              </div>
+              <div class="credential-item">
+                <i class="fas fa-book"></i>
+                <span>20+ artigos publicados</span>
+              </div>
+            </div>
+
+            <div class="speaker-lectures">
+              <h5 class="lecture-title">Palestras Confirmadas</h5>
+              <div class="lecture-time">Dia 2 - 09:00 às 10:30</div>
+              <div class="lecture-description">
+                <strong>Periodontia e Saúde Gengival:</strong> Abordagem moderna do tratamento periodontal, incluindo técnicas regenerativas e cirurgia plástica periodontal.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dra. Mariana Costa -->
+      <div class="col-lg-6" data-specialty="estetica">
+        <div class="speaker-card">
+          <div class="speaker-header">
+            <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=300&h=300&fit=crop&crop=face" alt="Dra. Mariana Costa" class="speaker-avatar">
+            <h3 class="speaker-name">Dra. Mariana Costa</h3>
+            <p class="speaker-specialty">Especialista em Estética Dental</p>
+            <div class="speaker-social">
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fas fa-globe"></i></a>
+            </div>
+          </div>
+          <div class="speaker-body">
+            <p class="speaker-bio">
+              Especialista em Estética Dental e Reabilitação Oral com foco em harmonização do sorriso. 
+              Mestre em Dentística pela UNESP e especialista em laminados cerâmicos e facetas. 
+              Referência nacional em estética dental.
+            </p>
+            
+            <div class="speaker-credentials">
+              <h5 class="credentials-title">Formação e Credenciais</h5>
+              <div class="credential-item">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Mestrado em Dentística - UNESP</span>
+              </div>
+              <div class="credential-item">
+                <i class="fas fa-certificate"></i>
+                <span>Especialista em Estética Dental - CRO</span>
+              </div>
+              <div class="credential-item">
+                <i class="fas fa-award"></i>
+                <span>Especialista em Laminados Cerâmicos</span>
+              </div>
+              <div class="credential-item">
+                <i class="fas fa-book"></i>
+                <span>18+ artigos publicados</span>
+              </div>
+            </div>
+
+            <div class="speaker-lectures">
+              <h5 class="lecture-title">Palestras Confirmadas</h5>
+              <div class="lecture-time">Dia 2 - 10:45 às 12:15</div>
+              <div class="lecture-description">
+                <strong>Estética Dental Avançada:</strong> Técnicas modernas em harmonização do sorriso, incluindo laminados cerâmicos, facetas e clareamento.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dr. Fernando Lima -->
+      <div class="col-lg-6" data-specialty="cirurgia">
+        <div class="speaker-card">
+          <div class="speaker-header">
+            <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=300&h=300&fit=crop&crop=face" alt="Dr. Fernando Lima" class="speaker-avatar">
+            <h3 class="speaker-name">Dr. Fernando Lima</h3>
+            <p class="speaker-specialty">Especialista em Cirurgia Bucomaxilofacial</p>
+            <div class="speaker-social">
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fas fa-globe"></i></a>
+            </div>
+          </div>
+          <div class="speaker-body">
+            <p class="speaker-bio">
+              Cirurgião Bucomaxilofacial com mais de 25 anos de experiência em cirurgias complexas. 
+              Doutor em Cirurgia pela UNIFESP e especialista em cirurgia ortognática e implantes zigomáticos. 
+              Professor universitário e palestrante internacional.
+            </p>
+            
+            <div class="speaker-credentials">
+              <h5 class="credentials-title">Formação e Credenciais</h5>
+              <div class="credential-item">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Doutorado em Cirurgia - UNIFESP</span>
+              </div>
+              <div class="credential-item">
+                <i class="fas fa-certificate"></i>
+                <span>Especialista em Cirurgia Bucomaxilofacial - CRO</span>
+              </div>
+              <div class="credential-item">
+                <i class="fas fa-award"></i>
+                <span>Professor Titular - UFPE</span>
+              </div>
+              <div class="credential-item">
+                <i class="fas fa-book"></i>
+                <span>30+ artigos publicados</span>
+              </div>
+            </div>
+
+            <div class="speaker-lectures">
+              <h5 class="lecture-title">Palestras Confirmadas</h5>
+              <div class="lecture-time">Dia 2 - 14:00 às 15:30</div>
+              <div class="lecture-description">
+                <strong>Cirurgia Bucomaxilofacial Avançada:</strong> Técnicas cirúrgicas modernas, incluindo cirurgia ortognática e implantes zigomáticos para casos complexos.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Estatísticas -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="stat-item">
+            <span class="stat-number">6</span>
+            <span class="stat-label">Palestrantes</span>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-item">
+            <span class="stat-number">150+</span>
+            <span class="stat-label">Anos de Experiência</span>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-item">
+            <span class="stat-number">120+</span>
+            <span class="stat-label">Artigos Publicados</span>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-item">
+            <span class="stat-number">6</span>
+            <span class="stat-label">Especialidades</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Filtro de palestrantes
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const filter = this.getAttribute('data-filter');
+        
+        // Atualizar botões ativos
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Filtrar palestrantes
+        document.querySelectorAll('[data-specialty]').forEach(speaker => {
+          if (filter === 'all' || speaker.getAttribute('data-specialty') === filter) {
+            speaker.style.display = 'block';
+          } else {
+            speaker.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Navbar background on scroll
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.style.background = 'rgba(107, 70, 193, 0.98)';
+      } else {
+        navbar.style.background = 'rgba(107, 70, 193, 0.95)';
+      }
+    });
+  </script>
+</body>
+</html> 

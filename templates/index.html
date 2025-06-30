@@ -1,0 +1,623 @@
+{% extends "base.html" %}
+
+{% block title %}Jornada Odontológica de Pernambuco 2025{% endblock %}
+
+{% block extra_css %}
+  <style>
+    * {
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    :root {
+      --primary-color: #6b46c1;
+      --secondary-color: #f8f9fa;
+      --accent-color: #ff6b35;
+      --text-dark: #2c3e50;
+      --text-light: #6c757d;
+    }
+
+    body {
+      line-height: 1.6;
+    }
+
+    .navbar {
+      background: rgba(107, 70, 193, 0.95) !important;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+
+    .nav-link {
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--accent-color) !important;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, #553c9a 100%);
+      color: white;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      opacity: 0.3;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .hero-subtitle {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      background: var(--accent-color);
+      border: none;
+      padding: 12px 30px;
+      font-weight: 600;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: #e55a2b;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .section-subtitle {
+      color: var(--text-light);
+      text-align: center;
+      margin-bottom: 3rem;
+      font-size: 1.1rem;
+    }
+
+    .card {
+      border: none;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .card img {
+      height: 280px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+    }
+
+    .card-title {
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .card-text {
+      color: var(--text-light);
+      margin-bottom: 1rem;
+    }
+
+    .speaker-social {
+      display: flex;
+      gap: 10px;
+      margin-top: 1rem;
+    }
+
+    .speaker-social a {
+      color: var(--primary-color);
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+
+    .speaker-social a:hover {
+      color: var(--accent-color);
+    }
+
+    .stats-section {
+      background: linear-gradient(135deg, var(--primary-color) 0%, #553c9a 100%);
+      color: white;
+      padding: 4rem 0;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .program-card {
+      background: white;
+      border-radius: 15px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      border-left: 5px solid var(--accent-color);
+    }
+
+    .program-time {
+      color: var(--accent-color);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .program-title {
+      font-weight: 600;
+      color: var(--text-dark);
+      margin: 0.5rem 0;
+    }
+
+    .program-speaker {
+      color: var(--text-light);
+      font-style: italic;
+    }
+
+    .location-card {
+      background: white;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .location-icon {
+      font-size: 3rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .contact-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    footer {
+      background: var(--text-dark);
+      color: white;
+      padding: 3rem 0 1rem;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-section h5 {
+      color: var(--accent-color);
+      margin-bottom: 1rem;
+    }
+
+    .footer-section p, .footer-section a {
+      color: #bdc3c7;
+      text-decoration: none;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .footer-section a:hover {
+      color: var(--accent-color);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background: var(--accent-color);
+      transform: translateY(-2px);
+    }
+
+    .countdown {
+      background: rgba(255,255,255,0.1);
+      border-radius: 15px;
+      padding: 2rem;
+      margin: 2rem 0;
+      backdrop-filter: blur(10px);
+    }
+
+    .countdown-item {
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .countdown-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      display: block;
+    }
+
+    .countdown-label {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .stat-number {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+
+  <!-- Banner -->
+  <header>
+    <div class="hero-content">
+      <h1 class="hero-title">Jornada Odontológica de Pernambuco</h1>
+      <p class="hero-subtitle">30 e 31 de Agosto de 2025 • Recife - PE</p>
+      
+      <div class="countdown">
+        <div class="row">
+          <div class="col-3">
+            <div class="countdown-item">
+              <span class="countdown-number" id="days">00</span>
+              <span class="countdown-label">Dias</span>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="countdown-item">
+              <span class="countdown-number" id="hours">00</span>
+              <span class="countdown-label">Horas</span>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="countdown-item">
+              <span class="countdown-number" id="minutes">00</span>
+              <span class="countdown-label">Minutos</span>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="countdown-item">
+              <span class="countdown-number" id="seconds">00</span>
+              <span class="countdown-label">Segundos</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <a href="{{ url_for('inscricao') }}" class="btn btn-primary btn-lg">
+        <i class="fas fa-ticket-alt me-2"></i>Garanta seu ingresso
+      </a>
+    </div>
+  </header>
+
+  <!-- Sobre -->
+  <section id="sobre" class="py-5">
+    <div class="container">
+      <h2 class="section-title">Sobre o Evento</h2>
+      <p class="section-subtitle">A maior jornada odontológica do Nordeste</p>
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <p class="text-center lead">
+            A Jornada Odontológica de Pernambuco reúne os principais nomes da odontologia nacional em dois dias de imersão, ciência, inovação e conexão profissional. Um espaço para aprender, trocar experiências e transformar sua carreira.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Estatísticas -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="stat-item">
+            <span class="stat-number">500+</span>
+            <span class="stat-label">Participantes</span>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-item">
+            <span class="stat-number">20</span>
+            <span class="stat-label">Palestrantes</span>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-item">
+            <span class="stat-number">16</span>
+            <span class="stat-label">Horas de Conteúdo</span>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-item">
+            <span class="stat-number">8</span>
+            <span class="stat-label">Especialidades</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Palestrantes -->
+  <section id="palestrantes" class="py-5 bg-light">
+    <div class="container">
+      <h2 class="section-title">Palestrantes Confirmados</h2>
+      <p class="section-subtitle">Conheça os especialistas que vão compartilhar conhecimento</p>
+      <div class="row g-4">
+        {% for palestrante in palestrantes %}
+        <div class="col-lg-3 col-md-6">
+          <div class="card">
+            <img src="{{ palestrante.foto if palestrante.foto else 'https://via.placeholder.com/400x400/6b46c1/ffffff?text=' + palestrante.nome.split()[0] }}" class="card-img-top" alt="{{ palestrante.nome }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ palestrante.nome }}</h5>
+              <p class="card-text">{{ palestrante.especialidade }}</p>
+              <div class="speaker-social">
+                {% if palestrante.linkedin %}
+                  <a href="{{ palestrante.linkedin }}" target="_blank"><i class="fab fa-linkedin"></i></a>
+                {% endif %}
+                {% if palestrante.instagram %}
+                  <a href="{{ palestrante.instagram }}" target="_blank"><i class="fab fa-instagram"></i></a>
+                {% endif %}
+                {% if palestrante.website %}
+                  <a href="{{ palestrante.website }}" target="_blank"><i class="fas fa-globe"></i></a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- Programação -->
+  <section id="programacao" class="py-5">
+    <div class="container">
+      <h2 class="section-title">Programação</h2>
+      <p class="section-subtitle">Confira a agenda completa do evento</p>
+      
+      <div class="row">
+        <div class="col-lg-6">
+          <h4 class="text-center mb-4">Dia 1 - 30 de Agosto</h4>
+          <div class="program-card">
+            <div class="program-time">08:00 - 09:00</div>
+            <div class="program-title">Credenciamento e Coffee Break</div>
+          </div>
+          <div class="program-card">
+            <div class="program-time">09:00 - 10:30</div>
+            <div class="program-title">Inovações em Ortodontia</div>
+            <div class="program-speaker">Dra. Priscila Prosini</div>
+          </div>
+          <div class="program-card">
+            <div class="program-time">10:45 - 12:15</div>
+            <div class="program-title">Implantes Dentários: Técnicas Modernas</div>
+            <div class="program-speaker">Dr. Carlos Mendes</div>
+          </div>
+          <div class="program-card">
+            <div class="program-time">14:00 - 15:30</div>
+            <div class="program-title">Endodontia Contemporânea</div>
+            <div class="program-speaker">Dra. Ana Silva</div>
+          </div>
+        </div>
+        
+        <div class="col-lg-6">
+          <h4 class="text-center mb-4">Dia 2 - 31 de Agosto</h4>
+          <div class="program-card">
+            <div class="program-time">08:00 - 09:00</div>
+            <div class="program-title">Credenciamento e Coffee Break</div>
+          </div>
+          <div class="program-card">
+            <div class="program-time">09:00 - 10:30</div>
+            <div class="program-title">Periodontia e Saúde Gengival</div>
+            <div class="program-speaker">Dr. Roberto Santos</div>
+          </div>
+          <div class="program-card">
+            <div class="program-time">10:45 - 12:15</div>
+            <div class="program-title">Estética Dental Avançada</div>
+            <div class="program-speaker">Dra. Mariana Costa</div>
+          </div>
+          <div class="program-card">
+            <div class="program-time">14:00 - 15:30</div>
+            <div class="program-title">Mesa Redonda: Futuro da Odontologia</div>
+            <div class="program-speaker">Todos os Palestrantes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Local -->
+  <section id="local" class="py-5 bg-light">
+    <div class="container">
+      <h2 class="section-title">Local do Evento</h2>
+      <p class="section-subtitle">Um local de excelência para um evento de excelência</p>
+      
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <div class="location-card">
+            <div class="location-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <h4>Centro de Convenções de Pernambuco</h4>
+            <p class="lead">Av. Prof. Andrade Bezerra, s/n - Salgadinho<br>Recife - PE, 50670-901</p>
+            <p>Um dos maiores e mais modernos centros de convenções do Nordeste, com infraestrutura completa para eventos de grande porte.</p>
+            <a href="https://www.google.com/maps" target="_blank" class="btn btn-primary mt-3">
+              <i class="fas fa-map-marked-alt me-2"></i>Ver no mapa
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contato -->
+  <section id="contato" class="py-5">
+    <div class="container">
+      <h2 class="section-title">Entre em Contato</h2>
+      <p class="section-subtitle">Tire suas dúvidas sobre o evento</p>
+      
+      <div class="row">
+        <div class="col-lg-6 mx-auto">
+          <div class="contact-info">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div>
+              <strong>Email</strong><br>
+              contato@jop2025.com.br
+            </div>
+          </div>
+          
+          <div class="contact-info">
+            <div class="contact-icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <div>
+              <strong>Telefone</strong><br>
+              (81) 99999-9999
+            </div>
+          </div>
+          
+          <div class="contact-info">
+            <div class="contact-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div>
+              <strong>Horário de Atendimento</strong><br>
+              Segunda a Sexta: 8h às 18h
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
+
+{% block extra_js %}
+  <script>
+    // Countdown Timer
+    function updateCountdown() {
+      const eventDate = new Date('August 30, 2025 08:00:00').getTime();
+      const now = new Date().getTime();
+      const distance = eventDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById('days').innerHTML = days.toString().padStart(2, '0');
+      document.getElementById('hours').innerHTML = hours.toString().padStart(2, '0');
+      document.getElementById('minutes').innerHTML = minutes.toString().padStart(2, '0');
+      document.getElementById('seconds').innerHTML = seconds.toString().padStart(2, '0');
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+{% endblock %}

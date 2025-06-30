@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inscrição - Jornada Odontológica de Pernambuco 2025</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    :root {
+      --primary-color: #6b46c1;
+      --secondary-color: #f8f9fa;
+      --accent-color: #ff6b35;
+      --text-dark: #2c3e50;
+      --text-light: #6c757d;
+    }
+
+    body {
+      line-height: 1.6;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+
+    .navbar {
+      background: rgba(107, 70, 193, 0.95) !important;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+
+    .nav-link {
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--accent-color) !important;
+    }
+
+    .page-header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, #553c9a 100%);
+      color: white;
+      padding: 6rem 0 4rem;
+      text-align: center;
+    }
+
+    .page-title {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .page-subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    .form-container {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      padding: 3rem;
+      margin: -2rem auto 3rem;
+      max-width: 800px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .form-section {
+      margin-bottom: 2.5rem;
+    }
+
+    .section-title {
+      color: var(--primary-color);
+      font-weight: 600;
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 0.5rem;
+    }
+
+    .form-label {
+      font-weight: 500;
+      color: var(--text-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-control {
+      border: 2px solid #e9ecef;
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.2rem rgba(107, 70, 193, 0.25);
+    }
+
+    .btn-primary {
+      background: var(--accent-color);
+      border: none;
+      padding: 12px 30px;
+      font-weight: 600;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: #e55a2b;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+    }
+
+    .pricing-card {
+      background: white;
+      border-radius: 15px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .pricing-card.selected {
+      border-color: var(--accent-color);
+      background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+    }
+
+    .price {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin: 1rem 0;
+    }
+
+    .price-original {
+      text-decoration: line-through;
+      color: var(--text-light);
+      font-size: 1.2rem;
+    }
+
+    .price-discount {
+      background: var(--accent-color);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-left: 0.5rem;
+    }
+
+    .benefits-list {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+    }
+
+    .benefits-list li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    .benefits-list li:last-child {
+      border-bottom: none;
+    }
+
+    .benefits-list li i {
+      color: var(--accent-color);
+      margin-right: 0.5rem;
+    }
+
+    .payment-methods {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+
+    .payment-method {
+      width: 50px;
+      height: 30px;
+      background: #f8f9fa;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--text-light);
+    }
+
+    .progress-bar {
+      background: var(--primary-color);
+      height: 4px;
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+
+    .step-indicator {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .step {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #e9ecef;
+      color: var(--text-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      margin: 0 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .step.active {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    .step.completed {
+      background: var(--accent-color);
+      color: white;
+    }
+
+    .form-navigation {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+
+    .btn-secondary {
+      background: var(--text-light);
+      border: none;
+      padding: 12px 30px;
+      font-weight: 600;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background: #5a6268;
+      transform: translateY(-2px);
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    .summary-item:last-child {
+      border-bottom: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--primary-color);
+    }
+
+    @media (max-width: 768px) {
+      .page-title {
+        font-size: 2rem;
+      }
+      
+      .form-container {
+        margin: -1rem 1rem 2rem;
+        padding: 2rem 1.5rem;
+      }
+      
+      .pricing-card {
+        margin-bottom: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Menu -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="teste.html"><i class="fas fa-tooth me-2"></i>JOP 2025</a>
+      <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="teste.html#sobre">Sobre</a></li>
+          <li class="nav-item"><a class="nav-link" href="teste.html#palestrantes">Palestrantes</a></li>
+          <li class="nav-item"><a class="nav-link" href="teste.html#programacao">Programação</a></li>
+          <li class="nav-item"><a class="nav-link" href="teste.html#local">Local</a></li>
+          <li class="nav-item"><a class="nav-link" href="teste.html#contato">Contato</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <div class="page-header">
+    <div class="container">
+      <h1 class="page-title">Inscrição JOP 2025</h1>
+      <p class="page-subtitle">Garanta sua vaga na maior jornada odontológica do Nordeste</p>
+    </div>
+  </div>
+
+  <!-- Formulário -->
+  <div class="container">
+    <div class="form-container">
+      <!-- Progress Bar -->
+      <div class="step-indicator">
+        <div class="step active">1</div>
+        <div class="step">2</div>
+        <div class="step">3</div>
+        <div class="step">4</div>
+      </div>
+
+      <form id="inscriptionForm">
+        <!-- Passo 1: Dados Pessoais -->
+        <div class="form-section" id="step1">
+          <h3 class="section-title"><i class="fas fa-user me-2"></i>Dados Pessoais</h3>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Nome Completo *</label>
+              <input type="text" class="form-control" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">CPF *</label>
+              <input type="text" class="form-control" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Email *</label>
+              <input type="email" class="form-control" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Telefone *</label>
+              <input type="tel" class="form-control" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Data de Nascimento</label>
+              <input type="date" class="form-control">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Gênero</label>
+              <select class="form-control">
+                <option>Selecione...</option>
+                <option>Feminino</option>
+                <option>Masculino</option>
+                <option>Prefiro não informar</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Passo 2: Dados Profissionais -->
+        <div class="form-section" id="step2" style="display: none;">
+          <h3 class="section-title"><i class="fas fa-briefcase me-2"></i>Dados Profissionais</h3>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Profissão *</label>
+              <select class="form-control" required>
+                <option>Selecione...</option>
+                <option>Cirurgião-Dentista</option>
+                <option>Estudante de Odontologia</option>
+                <option>Auxiliar de Saúde Bucal</option>
+                <option>Técnico em Saúde Bucal</option>
+                <option>Outro</option>
+              </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">CRO (se aplicável)</label>
+              <input type="text" class="form-control">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Instituição de Ensino/Trabalho</label>
+              <input type="text" class="form-control">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Especialidade Principal</label>
+              <select class="form-control">
+                <option>Selecione...</option>
+                <option>Clínica Geral</option>
+                <option>Ortodontia</option>
+                <option>Implantodontia</option>
+                <option>Endodontia</option>
+                <option>Periodontia</option>
+                <option>Estética</option>
+                <option>Cirurgia</option>
+                <option>Outra</option>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Endereço Completo</label>
+            <input type="text" class="form-control" placeholder="Rua, número, bairro, cidade, estado, CEP">
+          </div>
+        </div>
+
+        <!-- Passo 3: Tipo de Inscrição -->
+        <div class="form-section" id="step3" style="display: none;">
+          <h3 class="section-title"><i class="fas fa-ticket-alt me-2"></i>Tipo de Inscrição</h3>
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <div class="pricing-card" onclick="selectPlan('early')">
+                <h5>Early Bird</h5>
+                <div class="price">R$ 297</div>
+                <div class="price-original">R$ 397</div>
+                <div class="price-discount">25% OFF</div>
+                <ul class="benefits-list">
+                  <li><i class="fas fa-check"></i>Acesso aos 2 dias</li>
+                  <li><i class="fas fa-check"></i>Material didático</li>
+                  <li><i class="fas fa-check"></i>Certificado</li>
+                  <li><i class="fas fa-check"></i>Coffee break</li>
+                </ul>
+                <div class="payment-methods">
+                  <div class="payment-method"><i class="fab fa-cc-visa"></i></div>
+                  <div class="payment-method"><i class="fab fa-cc-mastercard"></i></div>
+                  <div class="payment-method"><i class="fab fa-pix"></i></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div class="pricing-card" onclick="selectPlan('regular')">
+                <h5>Regular</h5>
+                <div class="price">R$ 397</div>
+                <ul class="benefits-list">
+                  <li><i class="fas fa-check"></i>Acesso aos 2 dias</li>
+                  <li><i class="fas fa-check"></i>Material didático</li>
+                  <li><i class="fas fa-check"></i>Certificado</li>
+                  <li><i class="fas fa-check"></i>Coffee break</li>
+                  <li><i class="fas fa-check"></i>Networking</li>
+                </ul>
+                <div class="payment-methods">
+                  <div class="payment-method"><i class="fab fa-cc-visa"></i></div>
+                  <div class="payment-method"><i class="fab fa-cc-mastercard"></i></div>
+                  <div class="payment-method"><i class="fab fa-pix"></i></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div class="pricing-card" onclick="selectPlan('premium')">
+                <h5>Premium</h5>
+                <div class="price">R$ 597</div>
+                <ul class="benefits-list">
+                  <li><i class="fas fa-check"></i>Acesso aos 2 dias</li>
+                  <li><i class="fas fa-check"></i>Material didático</li>
+                  <li><i class="fas fa-check"></i>Certificado</li>
+                  <li><i class="fas fa-check"></i>Coffee break</li>
+                  <li><i class="fas fa-check"></i>Networking</li>
+                  <li><i class="fas fa-check"></i>Workshop exclusivo</li>
+                  <li><i class="fas fa-check"></i>Jantar com palestrantes</li>
+                </ul>
+                <div class="payment-methods">
+                  <div class="payment-method"><i class="fab fa-cc-visa"></i></div>
+                  <div class="payment-method"><i class="fab fa-cc-mastercard"></i></div>
+                  <div class="payment-method"><i class="fab fa-pix"></i></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Passo 4: Confirmação -->
+        <div class="form-section" id="step4" style="display: none;">
+          <h3 class="section-title"><i class="fas fa-check-circle me-2"></i>Confirmação</h3>
+          <div class="row">
+            <div class="col-md-8">
+              <h5>Resumo da Inscrição</h5>
+              <div class="summary-item">
+                <span>Nome:</span>
+                <span id="summaryName">-</span>
+              </div>
+              <div class="summary-item">
+                <span>Email:</span>
+                <span id="summaryEmail">-</span>
+              </div>
+              <div class="summary-item">
+                <span>Profissão:</span>
+                <span id="summaryProfession">-</span>
+              </div>
+              <div class="summary-item">
+                <span>Plano:</span>
+                <span id="summaryPlan">-</span>
+              </div>
+              <div class="summary-item">
+                <span>Valor Total:</span>
+                <span id="summaryPrice">-</span>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="alert alert-info">
+                <h6><i class="fas fa-info-circle me-2"></i>Informações</h6>
+                <small>
+                  • Pagamento seguro via PIX ou cartão<br>
+                  • Cancelamento até 7 dias antes<br>
+                  • Certificado digital incluído<br>
+                  • Material disponível online
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navegação -->
+        <div class="form-navigation">
+          <button type="button" class="btn btn-secondary" id="prevBtn" style="display: none;">
+            <i class="fas fa-arrow-left me-2"></i>Anterior
+          </button>
+          <button type="button" class="btn btn-primary" id="nextBtn">
+            Próximo<i class="fas fa-arrow-right ms-2"></i>
+          </button>
+          <button type="submit" class="btn btn-primary" id="submitBtn" style="display: none;">
+            <i class="fas fa-credit-card me-2"></i>Finalizar Inscrição
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    let currentStep = 1;
+    let selectedPlan = null;
+    const totalSteps = 4;
+
+    function showStep(step) {
+      // Esconder todos os passos
+      for (let i = 1; i <= totalSteps; i++) {
+        document.getElementById(`step${i}`).style.display = 'none';
+      }
+      
+      // Mostrar o passo atual
+      document.getElementById(`step${step}`).style.display = 'block';
+      
+      // Atualizar indicadores
+      updateStepIndicators(step);
+      
+      // Atualizar botões
+      updateButtons(step);
+    }
+
+    function updateStepIndicators(step) {
+      const steps = document.querySelectorAll('.step');
+      steps.forEach((stepEl, index) => {
+        stepEl.classList.remove('active', 'completed');
+        if (index + 1 < step) {
+          stepEl.classList.add('completed');
+        } else if (index + 1 === step) {
+          stepEl.classList.add('active');
+        }
+      });
+    }
+
+    function updateButtons(step) {
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const submitBtn = document.getElementById('submitBtn');
+      
+      prevBtn.style.display = step > 1 ? 'block' : 'none';
+      nextBtn.style.display = step < totalSteps ? 'block' : 'none';
+      submitBtn.style.display = step === totalSteps ? 'block' : 'none';
+    }
+
+    function selectPlan(plan) {
+      selectedPlan = plan;
+      
+      // Remover seleção anterior
+      document.querySelectorAll('.pricing-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+      
+      // Selecionar o plano clicado
+      event.currentTarget.classList.add('selected');
+    }
+
+    function updateSummary() {
+      const name = document.querySelector('#step1 input[type="text"]').value;
+      const email = document.querySelector('#step1 input[type="email"]').value;
+      const profession = document.querySelector('#step2 select').value;
+      
+      document.getElementById('summaryName').textContent = name || '-';
+      document.getElementById('summaryEmail').textContent = email || '-';
+      document.getElementById('summaryProfession').textContent = profession || '-';
+      
+      if (selectedPlan) {
+        const planNames = {
+          'early': 'Early Bird - R$ 297',
+          'regular': 'Regular - R$ 397',
+          'premium': 'Premium - R$ 597'
+        };
+        const planPrices = {
+          'early': 'R$ 297,00',
+          'regular': 'R$ 397,00',
+          'premium': 'R$ 597,00'
+        };
+        
+        document.getElementById('summaryPlan').textContent = planNames[selectedPlan];
+        document.getElementById('summaryPrice').textContent = planPrices[selectedPlan];
+      }
+    }
+
+    // Event listeners
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      if (currentStep < totalSteps) {
+        currentStep++;
+        showStep(currentStep);
+        if (currentStep === totalSteps) {
+          updateSummary();
+        }
+      }
+    });
+
+    document.getElementById('prevBtn').addEventListener('click', () => {
+      if (currentStep > 1) {
+        currentStep--;
+        showStep(currentStep);
+      }
+    });
+
+    document.getElementById('inscriptionForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Inscrição realizada com sucesso! Você receberá um email de confirmação.');
+    });
+
+    // Navbar background on scroll
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.style.background = 'rgba(107, 70, 193, 0.98)';
+      } else {
+        navbar.style.background = 'rgba(107, 70, 193, 0.95)';
+      }
+    });
+  </script>
+</body>
+</html> 

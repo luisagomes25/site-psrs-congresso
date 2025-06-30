@@ -1,0 +1,321 @@
+{% extends "base.html" %}
+
+{% block title %}Palestrantes - Jornada Odontológica de Pernambuco 2025{% endblock %}
+
+{% block extra_css %}
+  <style>
+    .page-header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, #553c9a 100%);
+      color: white;
+      padding: 6rem 0 4rem;
+      text-align: center;
+    }
+
+    .page-title {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .page-subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    .speaker-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      margin-bottom: 2rem;
+    }
+
+    .speaker-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+    }
+
+    .speaker-header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, #553c9a 100%);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .speaker-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid white;
+      margin: 0 auto 1rem;
+      display: block;
+    }
+
+    .speaker-name {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .speaker-specialty {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 1rem;
+    }
+
+    .speaker-social {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .speaker-social a {
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.2);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .speaker-social a:hover {
+      background: var(--accent-color);
+      transform: translateY(-2px);
+    }
+
+    .speaker-body {
+      padding: 2rem;
+    }
+
+    .speaker-bio {
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+    }
+
+    .speaker-credentials {
+      background: var(--secondary-color);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .credentials-title {
+      color: var(--primary-color);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .credential-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .credential-item i {
+      color: var(--accent-color);
+      margin-right: 0.5rem;
+      width: 20px;
+    }
+
+    .speaker-lectures {
+      border-top: 1px solid #e9ecef;
+      padding-top: 1.5rem;
+    }
+
+    .lecture-title {
+      color: var(--primary-color);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .lecture-time {
+      color: var(--accent-color);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .lecture-description {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    .filter-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: white;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      padding: 0.5rem 1.5rem;
+      border-radius: 25px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    .stats-section {
+      background: linear-gradient(135deg, var(--primary-color) 0%, #553c9a 100%);
+      color: white;
+      padding: 4rem 0;
+      margin: 4rem 0;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    @media (max-width: 768px) {
+      .page-title {
+        font-size: 2rem;
+      }
+      
+      .filter-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .filter-btn {
+        width: 200px;
+      }
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <!-- Header -->
+  <div class="page-header">
+    <div class="container">
+      <h1 class="page-title">Palestrantes Confirmados</h1>
+      <p class="page-subtitle">Conheça os especialistas que vão compartilhar conhecimento</p>
+    </div>
+  </div>
+
+  <!-- Filtros -->
+  <div class="container mt-5">
+    <div class="filter-buttons">
+      <a href="{{ url_for('palestrantes') }}" class="filter-btn {% if filtro_atual == 'all' %}active{% endif %}">Todos</a>
+      {% for especialidade in especialidades %}
+        <a href="{{ url_for('palestrantes', especialidade=especialidade) }}" class="filter-btn {% if filtro_atual == especialidade %}active{% endif %}">{{ especialidade }}</a>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Palestrantes -->
+  <div class="container mt-5">
+    <div class="row">
+      {% for palestrante in palestrantes %}
+      <div class="col-lg-6">
+        <div class="speaker-card">
+          <div class="speaker-header">
+            <img src="{{ palestrante.foto if palestrante.foto else 'https://via.placeholder.com/120x120/6b46c1/ffffff?text=' + palestrante.nome.split()[0] }}" alt="{{ palestrante.nome }}" class="speaker-avatar">
+            <h3 class="speaker-name">{{ palestrante.nome }}</h3>
+            <p class="speaker-specialty">{{ palestrante.especialidade }}</p>
+                         <div class="speaker-social">
+               {% if palestrante.linkedin %}
+                 <a href="{{ palestrante.linkedin }}" target="_blank"><i class="fab fa-linkedin"></i></a>
+               {% endif %}
+               {% if palestrante.instagram %}
+                 <a href="{{ palestrante.instagram }}" target="_blank"><i class="fab fa-instagram"></i></a>
+               {% endif %}
+               {% if palestrante.website %}
+                 <a href="{{ palestrante.website }}" target="_blank"><i class="fas fa-globe"></i></a>
+               {% endif %}
+             </div>
+          </div>
+          <div class="speaker-body">
+            <p class="speaker-bio">{{ palestrante.biografia }}</p>
+            
+            {% if palestrante.credenciais %}
+            <div class="speaker-credentials">
+              <h5 class="credentials-title">Formação e Credenciais</h5>
+              {% for credencial in palestrante.credenciais.split('\n') %}
+                <div class="credential-item">
+                  <i class="fas fa-graduation-cap"></i>
+                  <span>{{ credencial }}</span>
+                </div>
+              {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if palestrante.palestras %}
+            <div class="speaker-lectures">
+              <h5 class="lecture-title">Palestras Confirmadas</h5>
+              {% for palestra in palestrante.palestras %}
+                <div class="lecture-time">Dia {{ palestra.dia }} - {{ palestra.horario_inicio.strftime('%H:%M') }} às {{ palestra.horario_fim.strftime('%H:%M') }}</div>
+                <div class="lecture-description">
+                  <strong>{{ palestra.titulo }}:</strong> {{ palestra.descricao }}
+                </div>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Estatísticas -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="stat-item">
+            <span class="stat-number">{{ palestrantes|length }}</span>
+            <span class="stat-label">Palestrantes</span>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-item">
+            <span class="stat-number">150+</span>
+            <span class="stat-label">Anos de Experiência</span>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-item">
+            <span class="stat-number">120+</span>
+            <span class="stat-label">Artigos Publicados</span>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-item">
+            <span class="stat-number">{{ especialidades|length }}</span>
+            <span class="stat-label">Especialidades</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %} 
